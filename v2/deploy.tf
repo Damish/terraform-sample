@@ -5,6 +5,10 @@ provider "aws" {
   secret_key = ""
 }
 
+variable "subnet-prefix" {
+  description = "cidr block for the subnet"
+}
+
 # 1. Create vpc
 resource "aws_vpc" "tf-prod-vpc" {
   cidr_block = "10.0.0.0/16"
@@ -45,11 +49,11 @@ resource "aws_route_table" "tf-prod-route-table" {
 # 4. Create a Subnet 
 resource "aws_subnet" "tf-subnet-1" {
   vpc_id            = aws_vpc.tf-prod-vpc.id
-  cidr_block        = "10.0.1.0/24"
+  cidr_block        = var.subnet-prefix[0].cidr_block
   availability_zone = "us-east-1a"
 
   tags = {
-    Name = "prod-subnet"
+    Name = var.subnet-prefix[0].name
   }
 }
 
@@ -115,6 +119,10 @@ resource "aws_eip" "one" {
   depends_on = [
     aws_internet_gateway.tf-gateway
   ]
+}
+
+output "server_public_ip" {
+  value = aws_eip.one.public_ip  
 }
 
 # 9. Create Ubuntu server and install/enable apache2
