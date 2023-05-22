@@ -1,0 +1,10 @@
+https://docs.aws.amazon.com/autoscaling/application/userguide/security_iam_id-based-policy-examples.html#application-auto-scaling-actions-permissions
+
+
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_policy
+
+
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy
+
+
+
